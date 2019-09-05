@@ -30,8 +30,34 @@ function loadNames(e) {
   if(quantity !== '') {
     url +=`amount=${quantity}&`
   }
-  console.log(url)
-  console.log(selectGenre)
-  console.log(number)
+  
+  // connect with AJAX
+  // Start XMLHTTPRequest
+  const xhr = new XMLHttpRequest
+  // Open connection
+  xhr.open('GET', url, true)
+  // DATA and print template
+  xhr.onload = function() {
+    if(this.status === 200) {
+      const names = JSON.parse(this.responseText)
+      // Generate HTML
+      let htmlNames = '<h2>Nombres generados</h2>'
+
+      htmlNames += '<ul class="list>'
+
+      // Print each name
+      names.forEach(function(name) {
+        htmlNames += `
+          <li>${names.name}
+        `    
+      })
+      console.log(names)
+      htmlNames += '</ul>'
+
+      document.getElementById('result').innerHTML = htmlNames
+    }
+  }
+  // Send request
+  xhr.send()
 
 }
